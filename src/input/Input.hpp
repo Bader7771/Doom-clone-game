@@ -9,11 +9,11 @@ public:
   float mouseDx() const { return mouseDx_; }
   bool fire() const { return fire_; }
   bool interact() const { return interact_; }
+  bool fullscreenToggle() const { return fullscreenToggle_; }
 private:
   const bool* keys_{};
   bool previous_[SDL_SCANCODE_COUNT]{};
   bool current_[SDL_SCANCODE_COUNT]{};
   float mouseDx_{};
-  bool fire_{}, interact_{};
+  bool fire_{}, interact_{}, fullscreenToggle_{};
 };
-

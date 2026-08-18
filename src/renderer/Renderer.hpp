@@ -1,20 +1,42 @@
 #pragma once
+
+#include "renderer/Materials.hpp"
+#include "renderer/TextureAtlas.hpp"
+#include "renderer/SpriteSheet.hpp"
 #include <SDL3/SDL.h>
+#include <cstdint>
 #include <vector>
-class Level; class Player; class Enemy; class Shotgun;
+
+class Level;
+class Player;
+class Enemy;
+class Shotgun;
 
 class Renderer {
 public:
-  static constexpr int W=320,H=200;
+  static constexpr int W = 640;
+  static constexpr int H = 360;
+
   bool init(SDL_Window* window);
-  void draw(const Level&,const Player&,const std::vector<Enemy>&,const Shotgun&,bool won);
+  void draw(const Level&, const Player&, const std::vector<Enemy>&, const Shotgun&, bool won);
   void shutdown();
+
 private:
-  void pixel(int x,int y,unsigned color);
-  void rect(int x,int y,int w,int h,unsigned color);
-  void text(int x,int y,const char* s,unsigned color,int scale=1);
-  void sprite(int cx,int base,int size,unsigned body,unsigned eye,bool dead,float anim);
-  void worldSprite(float x,float y,int kind,const Player&,const std::vector<float>& depth,float anim=0);
-  SDL_Window* window_{}; SDL_GLContext context_{}; unsigned texture_{};
-  std::vector<unsigned> pixels_ = std::vector<unsigned>(W * H);
+  void pixel(int x, int y, std::uint32_t color);
+  void rect(int x, int y, int w, int h, std::uint32_t color);
+  void text(int x, int y, const char* text, std::uint32_t color, int scale = 1);
+  void sprite(int centerX, int baseY, int size, std::uint32_t body, std::uint32_t eye, float animation);
+  void worldSprite(float x, float y, int kind, const Player&, const std::vector<float>& depth, float animation = 0.0f, float pain = 0.0f);
+  void drawSurfaces(const Level&, const Player&, const Shotgun&);
+  void present();
+
+  SDL_Window* window_{};
+  SDL_GLContext context_{};
+  unsigned texture_{};
+  float time_{};
+  TextureAtlas atlas_;
+  MaterialLibrary materials_;
+  SpriteSheet shotgunSprites_;
+  std::vector<std::uint32_t> pixels_ = std::vector<std::uint32_t>(W * H);
+  std::vector<float> depth_ = std::vector<float>(W, 99.0f);
 };

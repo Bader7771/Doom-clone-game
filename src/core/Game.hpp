@@ -10,6 +10,5 @@
 #include <vector>
 class Game {
 public: bool init(); int run(); ~Game();
-private: void update(float dt); SDL_Window* window_{}; Input input_; Renderer renderer_; Level level_; Player player_; Shotgun shotgun_; Audio audio_; std::vector<Enemy> enemies_; bool won_{};
+private: void update(float dt); SDL_Window* window_{}; Input input_; Renderer renderer_; Level level_; Player player_; Shotgun shotgun_; Audio audio_; std::vector<Enemy> enemies_; bool won_{}, fullscreen_{};
 };
-

@@ -29,6 +29,9 @@ add_executable(voidlock
   src/entities/Enemy.cpp
   src/weapons/Shotgun.cpp
   src/renderer/Renderer.cpp
+  src/renderer/TextureAtlas.cpp
+  src/renderer/Materials.cpp
+  src/renderer/SpriteSheet.cpp
   src/audio/Audio.cpp
 )
 target_include_directories(voidlock PRIVATE src)
@@ -38,4 +41,3 @@ if(MSVC)
 else()
   target_compile_options(voidlock PRIVATE -Wall -Wextra -Wpedantic)
 endif()
-
