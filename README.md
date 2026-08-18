@@ -43,6 +43,7 @@ For a system-only/offline build, use `cmake -S . -B build -DVOIDLOCK_FETCH_SDL=O
 | Left mouse / Space | Fire shotgun |
 | E | Open the cyan locked door (key required) |
 | Alt+Enter | Toggle fullscreen |
+| F1 | Toggle enemy developer information |
 | Escape | Quit |
 
 Pickups activate on contact. The green canister restores health, the amber box adds shells, and the cyan device is the keycard.
@@ -67,6 +68,10 @@ assets/
 The map is deliberately stored as readable ASCII in `Level.cpp`, making it easy to learn from and replace with a file loader later. The renderer uses grid DDA traversal, perspective-correct textured floors and ceilings, coordinate-varied wall materials, and nearest-neighbor integer scaling where the window permits it. Audio methods are wired into weapon and pickup events but intentionally silent until original `.wav` assets are added.
 
 The original RIVET-12 shotgun demonstrates the weapon pipeline: six frame-based states, movement bob, heavy recoil, camera kick, eleven-pellet spread, shell ejection, wall impacts, blood bursts, enemy knockback, pain tint, and a short-lived muzzle light evaluated inside the low-resolution world renderer.
+
+The enemy roster contains three original directional sprite enemies: the fast melee Rusher, repositioning burst-fire Gunner, and slow projectile-firing Brute. They share a typed animation/state runtime while retaining separate movement speeds, attack timing, health, scale, reactions, and silhouettes. Death animations settle into persistent corpse sprites.
+
+The HUD includes an original animated protagonist portrait with health-tier damage, idle variation, blinking, movement looks, directional pain, shotgun aggression, kill reaction, critical condition, and death priority states.
 
 ## Good next steps
 

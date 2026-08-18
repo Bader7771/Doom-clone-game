@@ -32,6 +32,7 @@ add_executable(voidlock
   src/renderer/TextureAtlas.cpp
   src/renderer/Materials.cpp
   src/renderer/SpriteSheet.cpp
+  src/ui/HudFace.cpp
   src/audio/Audio.cpp
 )
 target_include_directories(voidlock PRIVATE src)
