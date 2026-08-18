@@ -33,6 +33,15 @@ cmake --build build -j
 
 For a system-only/offline build, use `cmake -S . -B build -DVOIDLOCK_FETCH_SDL=OFF` after installing SDL3.
 
+## Code formatting
+
+The project uses ClangFormat with the repository-root `.clang-format` file. In VS Code, C/C++
+files format on save and with **Format Document**. To format every first-party C++ file, run:
+
+```sh
+cmake --build build --target format
+```
+
 ## Controls
 
 | Input | Action |

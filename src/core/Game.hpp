@@ -4,12 +4,29 @@
 #include "entities/Player.hpp"
 #include "input/Input.hpp"
 #include "renderer/Renderer.hpp"
+#include "ui/HudFace.hpp"
 #include "weapons/Shotgun.hpp"
 #include "world/Level.hpp"
-#include "ui/HudFace.hpp"
 #include <SDL3/SDL.h>
 #include <vector>
 class Game {
-public: bool init(); int run(); ~Game();
-private: void update(float dt); SDL_Window* window_{}; Input input_; Renderer renderer_; Level level_; Player player_; Shotgun shotgun_; HudFace hudFace_; Audio audio_; std::vector<Enemy> enemies_; std::vector<EnemyProjectile> enemyProjectiles_; float deathTimer_{}; bool won_{}, fullscreen_{}, debugEnemies_{};
+  public:
+    bool init();
+    int run();
+    ~Game();
+
+  private:
+    void update(float dt);
+    SDL_Window* window_{};
+    Input input_;
+    Renderer renderer_;
+    Level level_;
+    Player player_;
+    Shotgun shotgun_;
+    HudFace hudFace_;
+    Audio audio_;
+    std::vector<Enemy> enemies_;
+    std::vector<EnemyProjectile> enemyProjectiles_;
+    float deathTimer_{};
+    bool won_{}, fullscreen_{}, debugEnemies_{};
 };

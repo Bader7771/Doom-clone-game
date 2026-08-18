@@ -42,3 +42,36 @@ if(MSVC)
 else()
   target_compile_options(voidlock PRIVATE -Wall -Wextra -Wpedantic)
 endif()
+
+find_program(CLANG_FORMAT_EXECUTABLE
+  NAMES clang-format clang-format-20 clang-format-19 clang-format-18 clang-format-17
+)
+if(NOT CLANG_FORMAT_EXECUTABLE AND APPLE)
+  execute_process(
+    COMMAND xcrun --find clang-format
+    OUTPUT_VARIABLE CLANG_FORMAT_EXECUTABLE
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+    ERROR_QUIET
+  )
+endif()
+
+if(CLANG_FORMAT_EXECUTABLE)
+  add_custom_target(format
+    COMMAND ${CMAKE_COMMAND} -E env
+      CLANG_FORMAT=${CLANG_FORMAT_EXECUTABLE}
+      ${CMAKE_SOURCE_DIR}/scripts/format.sh format
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+    COMMENT "Formatting first-party C++ sources"
+    VERBATIM
+  )
+  add_custom_target(format-check
+    COMMAND ${CMAKE_COMMAND} -E env
+      CLANG_FORMAT=${CLANG_FORMAT_EXECUTABLE}
+      ${CMAKE_SOURCE_DIR}/scripts/format.sh check
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+    COMMENT "Checking first-party C++ source formatting"
+    VERBATIM
+  )
+else()
+  message(STATUS "clang-format not found; format targets will not be available")
+endif()
