@@ -47,3 +47,19 @@ void Player::addWeaponKick(float recoil, float shake) {
     viewKick_ = std::min(.09f, viewKick_ + recoil);
     screenShake_ = std::min(1.f, screenShake_ + shake);
 }
+
+float Player::getFlashlightFlicker(float time) const {
+    if (!flashlightOn || flashlightCharge <= 0.f)
+        return 0.f;
+    const float pct = flashlightCharge / MaxFlashlightCharge;
+    if (pct > 0.30f)
+        return 1.f; // steady
+    if (pct > 0.10f) {
+        // occasional slow flicker
+        const float wave = std::sin(time * 8.5f) * std::sin(time * 3.1f);
+        return wave < -0.65f ? 0.35f : 1.f;
+    }
+    // rapid stutter when critical
+    const float wave = std::sin(time * 27.f) * std::sin(time * 11.3f);
+    return wave < 0.f ? 0.f : 0.85f;
+}

@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-enum class PickupType { Health, Ammo, Key };
+enum class PickupType { Health, Ammo, Key, FlashlightBattery };
 struct Pickup {
     Vec2 pos;
     PickupType type;

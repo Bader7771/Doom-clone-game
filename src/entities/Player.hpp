@@ -13,7 +13,11 @@ class Player {
     float angle{};
     int health{100}, ammo{12};
     bool hasKey{false};
+    bool flashlightOn{false};
+    float flashlightCharge{100.0f};
+    static constexpr float MaxFlashlightCharge = 100.0f;
     float hurtFlash{};
+    float getFlashlightFlicker(float time) const;
     float movementAmount() const {
         return movementAmount_;
     }

@@ -9,6 +9,8 @@
 #include "world/Level.hpp"
 #include <SDL3/SDL.h>
 #include <vector>
+enum class GameState { Title, Transitioning, Loading, Playing };
+
 class Game {
   public:
     bool init();
@@ -29,4 +31,8 @@ class Game {
     std::vector<EnemyProjectile> enemyProjectiles_;
     float deathTimer_{};
     bool won_{}, fullscreen_{}, debugEnemies_{};
+    
+    GameState state_{GameState::Title};
+    float transitionTimer_{0.0f};
+    int menuSelection_{0};
 };

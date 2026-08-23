@@ -7,7 +7,7 @@
 #include <cmath>
 
 namespace {
-constexpr std::array<EnemyDefinition, 3> definitions{
+constexpr std::array<EnemyDefinition, 4> definitions{
     {{"RUSHER", 36, 2.15f, .18f, .65f, 9.f, .75f},
      {"GUNNER", 72, .82f, .24f, .76f, 11.f, 4.7f},
      {"BRUTE", 190, .47f, .30f, .84f, 12.f, 6.2f}}};
@@ -139,6 +139,8 @@ const char* Enemy::stateName() const {
     }
     return "?";
 }
+
+// ---------------------------------------------------------------------------
 
 void Enemy::updateRusher(float dt, Player& player, const Level& level, Audio& audio) {
     const Vec2 toPlayer = player.pos - pos;
@@ -282,9 +284,10 @@ void Enemy::update(float dt,
     }
     if (state == EnemyState::Alert) {
         facing = normalized(player.pos - pos);
-        if (stateTime > (type == EnemyType::Rusher   ? .38f
-                         : type == EnemyType::Gunner ? .62f
-                                                     : .85f))
+        const float alertDuration = type == EnemyType::Rusher   ? .38f
+                                    : type == EnemyType::Gunner ? .62f
+                                                                : .85f;
+        if (stateTime > alertDuration)
             enter(EnemyState::Chase);
         return;
     }
@@ -292,6 +295,6 @@ void Enemy::update(float dt,
         updateRusher(dt, player, level, audio);
     else if (type == EnemyType::Gunner)
         updateGunner(dt, player, level, audio);
-    else
+    else if (type == EnemyType::Brute)
         updateBrute(dt, player, level, projectiles, audio);
 }

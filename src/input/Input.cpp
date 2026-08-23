@@ -7,6 +7,7 @@ bool Input::update() {
     fire_ = false;
     interact_ = false;
     fullscreenToggle_ = false;
+    flashlightToggle_ = false;
     SDL_Event e;
     while (SDL_PollEvent(&e)) {
         if (e.type == SDL_EVENT_QUIT)
@@ -20,6 +21,8 @@ bool Input::update() {
         if (e.type == SDL_EVENT_KEY_DOWN && !e.key.repeat &&
             e.key.scancode == SDL_SCANCODE_RETURN && (e.key.mod & SDL_KMOD_ALT))
             fullscreenToggle_ = true;
+        if (e.type == SDL_EVENT_KEY_DOWN && !e.key.repeat && e.key.scancode == SDL_SCANCODE_F)
+            flashlightToggle_ = true;
     }
     keys_ = SDL_GetKeyboardState(nullptr);
     std::copy(keys_, keys_ + SDL_SCANCODE_COUNT, std::begin(current_));

@@ -18,11 +18,14 @@ class Input {
     bool fullscreenToggle() const {
         return fullscreenToggle_;
     }
+    bool flashlightToggle() const {
+        return flashlightToggle_;
+    }
 
   private:
     const bool* keys_{};
     bool previous_[SDL_SCANCODE_COUNT]{};
     bool current_[SDL_SCANCODE_COUNT]{};
     float mouseDx_{};
-    bool fire_{}, interact_{}, fullscreenToggle_{};
+    bool fire_{}, interact_{}, fullscreenToggle_{}, flashlightToggle_{};
 };
